@@ -9,8 +9,16 @@ const message = document.querySelector(".message");
 const number = document.querySelector(".number");
 let secretNumber = (Math.trunc(Math.random()*20)+1);
 
-//game reset//
+
+
+
+const displayMessage = (val)=>{
+    message.textContent = val;
+}
+
 const btn_reset = document.querySelector(".again");
+
+//game reset Event//
 btn_reset.addEventListener("click",function(){
     const guess = document.querySelector(".guess");
 
@@ -22,7 +30,7 @@ btn_reset.addEventListener("click",function(){
     document.querySelector(".score").textContent = score;
     
 
-    message.textContent="Start guessing...";
+    displayMessage("Start guessing...")
     number.textContent="?";
     guess.value ="";
     
@@ -42,41 +50,19 @@ btn.addEventListener('click',function(){
 
     //if we donot get a number in the guess box ! we print error!
     if(!guess){
-        message.textContent = " 🚨 No Number !!";    
+        displayMessage("  🚨 No Number !!");
     }
-    //guess greater than secret Number;
-    else if(guess > secretNumber)
-    {
-        if(score > 0){
-            message.textContent = "  Guess Too High!! 🚨";   
+    else if(guess !== secretNumber){
+        if(score > 0 ){           
+            displayMessage(guess > secretNumber ? " Guess Too High!! 🚨": " Guess Too Low!! 🚨");
             document.querySelector(".score").textContent = --score;
         }
-        else  {
-            message.textContent = "😶😑 You Lost the Game!"  ;
-            body.style.backgroundColor = "red";
-
-        }
-    }
-    //guess lesser than secret Number;
-
-    else if(guess < secretNumber )
-    {
-        
-        if(score > 0){
-            message.textContent = "  Guess Too Low!! 🚨";   
-            document.querySelector(".score").textContent = --score;
-        }
-        else  {
-            message.textContent = "😶😑 You Lost the Game!" ; 
-            body.style.backgroundColor = "red";
-
-        }
+        else displayMessage("😶😑 You Lost the Game!");
     }
     //guess equal to secret Number;
-
     else{
 
-        message.textContent = "Congratulations !! Correct Number! 🔥🔥";
+        displayMessage("Congratulations !! Correct Number! 🔥🔥");
         
         if(highScore < score){
             highScore=score;
