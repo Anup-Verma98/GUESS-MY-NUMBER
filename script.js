@@ -1,7 +1,7 @@
 'use strict';
 
 let score = 20;//saved the state of variable for later use
-let highScore;
+let highScore=0;
 
 const btn = document.querySelector(".check");
 const body = document.querySelector("body");
@@ -77,9 +77,12 @@ btn.addEventListener('click',function(){
     else{
 
         message.textContent = "Congratulations !! Correct Number! 🔥🔥";
-        highScore=score;
+        
+        if(highScore < score){
+            highScore=score;
+            document.querySelector(".highscore").textContent = highScore;
+        }
         document.querySelector(".number").textContent=secretNumber;
-        document.querySelector(".highscore").textContent = highScore;
         body.style.backgroundColor = "#60b347";
 
     }
